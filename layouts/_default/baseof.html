@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>{{ .Site.Title }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!-- Cache buster:: -->
+  <link rel="stylesheet" href="/assets/css/custom.css?v=2" />
+  <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+
+  {{ block "head" . }}{{ end }}
+</head>
+
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="{{ "/" | relURL }}"><strong>{{ .Site.Title }}</strong></a></h1>
+        <nav>
+          <ul>
+            <li><a href="#footer" class="icon solid fa-info-circle">About</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Main content block -->
+      {{ block "main" . }}{{ end }}
+
+      <!-- Footer -->
+      {{ partial "footer.html" . }}
+
+    <!-- Scripts -->
+    <script src="{{ "assets/js/jquery.min.js" | relURL }}"></script>
+    <!-- <script src="{{ "assets/js/jquery.poptrox.min.js" | relURL }}"></script> -->
+    <script src="{{ "assets/js/browser.min.js" | relURL }}"></script>
+    <script src="{{ "assets/js/breakpoints.min.js" | relURL }}"></script>
+    <script src="{{ "assets/js/util.js" | relURL }}"></script>
+    <script src="{{ "assets/js/main.js" | relURL }}"></script>
+  </body>
+</html>

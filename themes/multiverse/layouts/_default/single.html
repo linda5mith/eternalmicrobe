@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <section id="main" class="inner">
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    {{ with .Params.image }}
+      <p><img src="{{ . }}" alt="{{ $.Title }}"></p>
+    {{ end }}
+    {{ .Content }}
+  </section>
+{{ end }}

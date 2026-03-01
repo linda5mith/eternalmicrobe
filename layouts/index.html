@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div id="main">
+  {{ range .Site.RegularPages.ByDate.Reverse }}
+    {{ if eq .Section "posts" }}
+      <article class="thumb">
+        <a href="{{ .RelPermalink }}" class="image">
+          <img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}" />
+        </a>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Params.description }}</p>
+      </article>
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}

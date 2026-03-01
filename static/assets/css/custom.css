@@ -1,0 +1,21 @@
+body.single .post .content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em auto;
+  border-radius: 6px;
+}
+
+.post .content p,
+.post .content li {
+  font-size: 1.1rem !important;
+  line-height: 1.7;
+}
+.post .content h1,
+.post .content h2,
+.post .content h3,
+.post .content h4,
+.post .content h5,
+.post .content h6 {
+  color: #5ff9b1;  /* change to your desired color */
+}

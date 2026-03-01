@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ if .Title }}{{ .Title }} · {{ end }}{{ .Site.Title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/custom.css" />
+    <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+      <header id="header">
+        <h1><a href="{{ .Site.BaseURL }}"><strong>{{ .Site.Title }}</strong></a></h1>
+      </header>
+
+      {{ block "main" . }}{{ end }}
+
+      <footer id="footer" class="panel">
+        <div class="inner split">
+          <p class="copyright">
+            &copy; {{ now.Format "2006" }} {{ .Site.Title }}. Design: <a href="http://html5up.net">HTML5 UP</a>.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.poptrox.min.js"></script>
+    <script src="/assets/js/browser.min.js"></script>
+    <script src="/assets/js/breakpoints.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

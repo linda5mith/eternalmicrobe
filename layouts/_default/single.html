@@ -1,0 +1,23 @@
+{{ define "head" }}
+  <link rel="stylesheet" href="{{ "assets/css/post.css" | relURL }}">
+{{ end }}
+
+{{ define "main" }}
+<article class="post">
+  <header>
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Date.Format "Jan 2, 2006" }}</p>
+  </header>
+
+  {{ with .Params.image }}
+    <div class="image main">
+      <img src="{{ . | relURL }}" alt="{{ $.Title }}" />
+    </div>
+  {{ end }}
+
+  <div class="content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}
+

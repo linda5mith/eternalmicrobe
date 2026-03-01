@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>{{ .Site.Title }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ "assets/css/main.css" | relURL }}" />
+    <noscript><link rel="stylesheet" href="{{ "assets/css/noscript.css" | relURL }}" /></noscript>
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="{{ "/" | relURL }}"><strong>{{ .Site.Title }}</strong></a></h1>
+        <nav>
+          <ul>
+            <li><a href="#footer" class="icon solid fa-info-circle">About</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Main -->
+      <div id="main">
+        {{ range .Site.RegularPages }}
+          <article class="thumb">
+            <a href="{{ .Params.image | relURL }}" class="image">
+              <img src="{{ .Params.thumb | relURL }}" alt="{{ .Title }}" />
+            </a>
+            <h2>{{ .Title }}</h2>
+            <p>{{ .Params.summary | default .Summary }}</p>
+          </article>
+        {{ end }}
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer" class="panel">
+        <div class="inner split">
+          <div>
+            <section>
+              <h2>{{ .Site.Params.aboutTitle | default "About" }}</h2>
+              <p>{{ .Site.Params.aboutText | default "Write your about text in config.toml" }}</p>
+            </section>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ "assets/js/jquery.min.js" | relURL }}"></script>
+    <script src="{{ "assets/js/jquery.poptrox.min.js" | relURL }}"></script>
+    <script src="{{ "assets/js/browser.min.js" | relURL }}"></script>
+    <script src="{{ "assets/js/breakpoints.min.js" | relURL }}"></script>
+    <script src="{{ "assets/js/util.js" | relURL }}"></script>
+    <script src="{{ "assets/js/main.js" | relURL }}"></script>
+
+  </body>
+</html>

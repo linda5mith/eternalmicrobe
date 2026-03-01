@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <div id="main">
+    {{ range .Pages }}
+      <article class="thumb">
+        <a href="{{ .RelPermalink }}">
+          {{ with .Params.thumb }}
+            <img src="{{ . }}" alt="{{ $.Title }}">
+          {{ end }}
+        </a>
+        <h2>{{ .Title }}</h2>
+        <p>{{ .Summary }}</p>
+      </article>
+    {{ end }}
+  </div>
+{{ end }}
