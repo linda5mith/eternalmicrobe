@@ -17,5 +17,16 @@ body.single .post .content img {
 .post .content h4,
 .post .content h5,
 .post .content h6 {
-  color: #5ff9b1;  /* change to your desired color */
+  color: #5ff9b1;  
+}
+
+.footer-logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.footer-logo img {
+  max-width: 600px;
+  height: auto;
+  opacity: 0.9;
 }
