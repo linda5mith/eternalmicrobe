@@ -1,3 +1,4 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'Linda Smith'
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "Linda Smith"
+theme = "multiverse"
