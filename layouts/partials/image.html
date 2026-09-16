@@ -1,0 +1,46 @@
+{{- $src := .src -}}
+{{- $image := false -}}
+{{- if not (or (strings.Contains $src ":") (strings.HasPrefix $src "//")) -}}
+  {{- $image = resources.Get (strings.TrimPrefix "/" $src) -}}
+{{- end -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $sizes := .sizes | default "(max-width: 800px) calc(100vw - 48px), 752px" -}}
+{{- $widths := .widths | default (slice 480 800 1600) -}}
+{{- $processable := false -}}
+{{- with $image -}}
+  {{- $processable = in (slice "jpeg" "png" "webp") .MediaType.SubType -}}
+{{- end -}}
+{{- if $processable -}}
+  {{- /* Apply the camera orientation before calculating responsive dimensions.
+        Resizing strips EXIF, so browsers cannot correct it afterwards. */ -}}
+  {{- /* Only ask Hugo to decode EXIF when the file contains an EXIF block.
+        Older Hugo versions warn on some valid images without camera metadata.
+        JPEG, WebP, and PNG use these respective EXIF block identifiers. */ -}}
+  {{- $hasExif := or (strings.Contains $image.Content "Exif\x00\x00") (strings.Contains $image.Content "EXIF") (strings.Contains $image.Content "eXIf") -}}
+  {{- if $hasExif -}}
+    {{- with $image.Exif -}}
+      {{- with .Tags.Orientation -}}
+        {{- if ne (int .) 1 -}}
+          {{- $image = $image.Filter images.AutoOrient -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $variants := slice -}}
+  {{- $fallback := $image -}}
+  {{- range $widths -}}
+    {{- $width := int (math.Min . $image.Width) -}}
+    {{- /* JPEG output works with standard Hugo too; retain PNG transparency. */ -}}
+    {{- $format := "jpeg" -}}
+    {{- if eq $image.MediaType.SubType "png" -}}{{- $format = "png" -}}{{- end -}}
+    {{- $resized := $image.Resize (printf "%dx %s q82" $width $format) -}}
+    {{- if and (le $image.Width $width) (lt (len $image.Content) (len $resized.Content)) -}}
+      {{- $resized = $image -}}
+    {{- end -}}
+    {{- $variants = $variants | append (printf "%s %dw" $resized.RelPermalink $resized.Width) -}}
+    {{- $fallback = $resized -}}
+  {{- end -}}
+  <img src="{{ $fallback.RelPermalink }}" srcset="{{ delimit ($variants | uniq) ", " }}" sizes="{{ $sizes }}" width="{{ $fallback.Width }}" height="{{ $fallback.Height }}" alt="{{ .alt }}" loading="{{ $loading }}" decoding="async"{{ with .title }} title="{{ . }}"{{ end }}{{ if .priority }} fetchpriority="high"{{ end }} />
+{{- else -}}
+  <img src="{{ $src | relURL }}" alt="{{ .alt }}" loading="{{ $loading }}" decoding="async"{{ with .title }} title="{{ . }}"{{ end }} />
+{{- end -}}

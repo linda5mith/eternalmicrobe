@@ -2,3 +2,12 @@ baseURL = "http://localhost:1313/"
 languageCode = "en-us"
 title = "Linda Smith"
 theme = "multiverse"
+
+# Make existing images available to Hugo's image processor; keep original URLs.
+[[module.mounts]]
+source = "static"
+target = "static"
+
+[[module.mounts]]
+source = "static/images"
+target = "assets/images"

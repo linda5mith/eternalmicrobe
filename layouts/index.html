@@ -1,15 +1,15 @@
 {{ define "main" }}
 <div id="main">
-  {{ range .Site.RegularPages.ByDate.Reverse }}
-    {{ if eq .Section "posts" }}
+  {{ range $index, $page := where .Site.RegularPages.ByDate.Reverse "Section" "posts" }}
       <article class="thumb">
         <a href="{{ .RelPermalink }}" class="image">
-          <img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}" />
+          {{ $loading := "lazy" }}
+          {{ if lt $index 2 }}{{ $loading = "eager" }}{{ end }}
+          {{ partial "image.html" (dict "src" .Params.thumbnail "alt" .Title "loading" $loading "priority" (eq $index 0) "widths" (slice 400 800 1200) "sizes" "(max-width: 480px) 100vw, (max-width: 1280px) 50vw, (max-width: 1680px) 33.33vw, 25vw") }}
         </a>
         <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
         <p>{{ .Params.description }}</p>
       </article>
-    {{ end }}
   {{ end }}
 </div>
 {{ end }}
